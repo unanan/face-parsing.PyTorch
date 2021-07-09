@@ -1,17 +1,17 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 
-from logger import setup_logger
 from model import BiSeNet
 
 import torch
-
+import argparse
 import os
 import os.path as osp
 import numpy as np
 from PIL import Image
 import torchvision.transforms as transforms
 import cv2
+
 
 def vis_parsing_maps(im, parsing_anno, stride, save_im=False, save_path='vis_results/parsing_map_on_im.jpg'):
     # Colors for all 20 parts
@@ -48,6 +48,7 @@ def vis_parsing_maps(im, parsing_anno, stride, save_im=False, save_path='vis_res
 
     # return vis_im
 
+
 def evaluate(respth='./res/test_res', dspth='./data', cp='model_final_diss.pth'):
 
     if not os.path.exists(respth):
@@ -79,12 +80,14 @@ def evaluate(respth='./res/test_res', dspth='./data', cp='model_final_diss.pth')
             vis_parsing_maps(image, parsing, stride=1, save_im=True, save_path=osp.join(respth, image_path))
 
 
-
-
-
+def arg_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dspth", type=str, default="/media/face_parsing/images")
+    parser.add_argument("--cp", type=str, default="/media/face_parsing/models/face_parsing.pth")
+    parser.add_argument("--respth", type=str, default="/media/face_parsing/results")
+    return parser.parse_args()
 
 
 if __name__ == "__main__":
-    evaluate(dspth='/home/zll/data/CelebAMask-HQ/test-img', cp='79999_iter.pth')
-
-
+    args = arg_parser()
+    evaluate(args.respth, args.dspth, args.cp)

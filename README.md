@@ -1,3 +1,24 @@
+# Our face-parsing.PyTorch
+- download weights:
+```
+export MODEL_DIR=/media/face_parsing/models
+mkdir -p $MODEL_DIR
+aws s3 cp s3://www.talkieselfie.xyz/face_parsing/weights/face_parsing.pth $MODEL_DIR/
+```
+- prepare folder of source images and folder of output results
+```
+export DATA_DIR=/media/face_parsing/images
+mkdir -p $DATA_DIR
+aws s3 cp s3://www.talkieselfie.xyz/HRNet/test.jpg $DATA_DIR/
+
+export RESULTS_DIR=/media/face_parsing/results
+mkdir -p $RESULTS_DIR
+```
+- test it
+```
+
+```
+
 # face-parsing.PyTorch
 
 <p align="center">
