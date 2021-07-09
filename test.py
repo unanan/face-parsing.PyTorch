@@ -66,10 +66,13 @@ def evaluate(respth='./res/test_res', dspth='./data', cp='model_final_diss.pth')
     ])
     with torch.no_grad():
         for image_path in os.listdir(dspth):
-            img = Image.open(osp.join(dspth, image_path))
-            image = img.resize((512, 512), Image.BILINEAR)
-            image = np.array(image)[:, np.newaxis]
-            print(image.size)
+            img = cv2.imread(osp.join(dspth, image_path))
+            image = cv2.resize(img, (512, 512), cv2.INTER_LINEAR)
+
+            # img = Image.open(osp.join(dspth, image_path))
+            # image = img.resize((512, 512), Image.BILINEAR)
+            # image = np.array(image)[:, np.newaxis]
+            # print(image.shape)
             img = to_tensor(image)
             img = torch.unsqueeze(img, 0)
             img = img.to(torch.device("cuda:0"))
