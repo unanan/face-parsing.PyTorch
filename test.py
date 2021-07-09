@@ -62,12 +62,13 @@ def evaluate(respth='./res/test_res', dspth='./data', cp='model_final_diss.pth')
 
     to_tensor = transforms.Compose([
         transforms.ToTensor(),
-        # transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
+        transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
     ])
     with torch.no_grad():
         for image_path in os.listdir(dspth):
             img = Image.open(osp.join(dspth, image_path))
             image = img.resize((512, 512), Image.BILINEAR)
+            image = np.array(image)[:, np.newaxis]
             print(image.size)
             img = to_tensor(image)
             img = torch.unsqueeze(img, 0)
