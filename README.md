@@ -16,7 +16,7 @@ mkdir -p $RESULTS_DIR
 ```
 - test it
 ```
-
+python test.py
 ```
 
 # face-parsing.PyTorch
