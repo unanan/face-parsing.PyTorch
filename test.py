@@ -56,8 +56,7 @@ def evaluate(respth='./res/test_res', dspth='./data', cp='model_final_diss.pth')
     n_classes = 19
     net = BiSeNet(n_classes=n_classes)
     net.to(torch.device("cuda:0"))
-    save_pth = osp.join('res/cp', cp)
-    net.load_state_dict(torch.load(save_pth))
+    net.load_state_dict(torch.load(cp))
     net.eval()
 
     to_tensor = transforms.Compose([
